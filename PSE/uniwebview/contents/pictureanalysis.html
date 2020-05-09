@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Picture Analysis</title>
+        <script type="application/javascript" src="../javascript/jquery/jquery-min.js"></script>
+        <script type="application/javascript" src="../javascript/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+        <script type="application/javascript" src="../javascript/jquery/jquery.ui.touch-punch.min.js"></script>
+	<style>
+
+        #PAWrapperID{
+            padding: 0px;
+            margin: 0px;
+            top:0px;
+            left:0px;
+            width:100%;
+            height:100%;
+            position: absolute;
+            text-align: center;
+            overflow: hidden;
+            font-family: arial;
+        }
+        #pictureHolderId{
+            width:90%;
+            height:80%;
+            box-sizing: border-box;
+            background-color: rgba(25, 25, 25, 0.6);
+            /*background-color: #E0F2F1;*/
+            display: inline-block;
+            padding:5px;
+            
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+           
+            
+            /* border: 2px solid white;  */
+            float:centre;
+        }
+        
+        #imgDiv{
+            height:100%;
+            margin:auto;
+            vertical-align: middle;
+            position: relative;
+            padding:2px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size:   contain;
+            
+        }
+        
+        #optionsHolder{
+            position: relative;
+            width:90%;
+            height:18%;
+            box-sizing: border-box;
+            background-color: rgba(25, 25, 25, 0.6);
+            display: inline-block;
+           /* padding:5px;
+            margin: 2px;*/
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            
+            /*border: 2px solid white;  */
+            float:centre;
+            text-align: left;
+            
+            vertical-align: :middle;
+            overflow-y: auto;
+            overflow-x: hidden;
+            
+            
+        }
+        
+        .checkbox_off{
+            background-image: url('../images/minigames/checkbox_off.png');
+            border:margin
+        }
+        
+        .checkbox_on{
+            background-image: url('../images/minigames/checkbox_on.png');
+            border:margin
+        }
+        .checkbox{
+            display: inline-block;
+            background-size: contain;
+            position: relative;
+            vertical-align: middle;
+            /*margin: auto 1.5em;*/
+            box-sizing: border-box;
+        }
+        
+        
+        .OptHolder{
+            height: 50%;
+            width: 100%;
+            display: inline-block;
+            position:relative;
+            vertical-align: middle;
+            /*margin: auto 1.5em;*/
+            box-sizing: border-box;
+            padding-left: 2%;
+            
+            padding-top: 1%;
+            padding-bottom: 1%;
+            color:white;
+        }
+        
+        .OptText{
+            width:80%;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+            /*margin: auto 1.5em;*/
+            box-sizing: border-box;
+            font-size: 18px;
+            padding-left: 2%;
+        }
+        
+    </style>
+    <previewTag></previewTag>
+
+    <script type="text/javascript">
+       // var parent.correctAnswers;
+       //var currentAnswers;
+        var currentXMLList;
+        var soundDelay;
+        var OptionsCount=0;
+        var myscore=0;
+        $(document).ready(function(){
+            if(typeof curXML !== 'undefined'){
+                HandlePreviewMode();     
+            }else{
+                currentXMLList = parent.currentXMLList; 	
+            }
+            parent.showCorrectAnswer = showCorrectAnswer;
+            
+             div =  $("#imgDiv") ;
+            
+
+            imgPath ="../"+ $(currentXMLList).find("Path").text();
+
+            resizeOption = $(currentXMLList).find("resize").text();
+            div.css({
+                backgroundImage:"url("+encodeURI(imgPath)+")"
+            });
+            
+            if(resizeOption == "fit"){
+                 div.css({
+                backgroundSize:"contain"
+            });
+            }else{
+                 div.css({
+                backgroundSize:"cover"
+            });
+                
+            }
+
+           // wdth = div.height();
+           // div.width(wdth);
+
+            parent.correctAnswers=$($(currentXMLList).find("Correct")).text();
+         
+            
+            
+            div =  $("#optionsContainer") ;
+            
+            rndOptions= $(currentXMLList).find("Question")
+            rndOptions = parent.strFuncs.arrayRandomize(rndOptions);
+            
+            OptHt= $("#optionsHolder").height()/rndOptions.length;
+
+            OptionsCount = rndOptions.length;
+            for(i=0; i<rndOptions.length;i++)
+            {
+                function addRadioOption(optionValue)
+                {
+                    
+                    var OptHolderdiv = $("<div class='OptHolder'></div>");
+                    OptHolderdiv.attr("id","OptHolder"+i);
+                    $("#optionsHolder").append(OptHolderdiv);
+                    
+                  //  OptHolderdiv.height(OptHt);
+                    
+                    button = $("<div class='OptButton'></div>");
+                    size = OptHt * 0.7;
+                    button.height(size);
+                    button.width(size);
+                    button.addClass("checkbox");
+                    button.addClass("checkbox_off");
+                    button.attr("value",optionValue);
+                   // button.attr("id",optionValue);
+
+                    
+                    textDiv = $("<div class='OptText'></div>");
+                    textDiv.attr("value",optionValue);
+                    
+                    optionValue =optionValue.replace('[','');
+                    optionValue =optionValue.replace(']','');
+                    
+                    textDiv.text(optionValue);
+                    
+                    OptHolderdiv.append(button);
+                    OptHolderdiv.append(textDiv);
+                    
+                }
+                addRadioOption($(rndOptions[i]).text());
+            }
+            parent.FontUtils.resize(".OptText");
+            
+            $(".checkbox").unbind().click(function(e){
+               //alert("test");
+                parent.currentAnswers=$(this).attr("value");
+
+                $(".checkbox").removeClass("checkbox_on");
+                $(".checkbox").addClass("checkbox_off");
+
+                $(this).removeClass("checkbox_off");
+                $(this).addClass("checkbox_on")
+            });
+            
+            parent.soundFile = ($(currentXMLList).find("audiofile").text() != "") ? $(currentXMLList).find("audiofile").text() : "";
+            soundDelay = ($(currentXMLList).find("audiodelay").text() != "") ? $(currentXMLList).find("audiodelay").text() : 0;
+            if(parent.soundFile!="")parent.playSoundMedia(parent.soundFile,soundDelay);
+        });
+        
+        function getScore(){
+            if(parent.correctAnswers.toString()==parent.currentAnswers.toString())myscore=1;
+            return myscore;
+        }
+        
+        function getTotal(){
+            return 1;
+        }
+        
+        function showCorrectAnswer(){
+           // $("input[id='"+parent.correctAnswers+"']").prop('checked','checked');
+            $(".checkbox").removeClass("checkbox_on");
+            $(".checkbox").addClass("checkbox_off");
+            
+            for(i=0;i<OptionsCount;i++){
+                val = $($(".OptButton")[i]).attr("value")   
+                if(val == parent.correctAnswers)
+                {
+                    $($(".OptButton")[i]).addClass("checkbox_on");
+                    return;
+                }
+            }
+           
+           
+        }
+        
+        function getCorrectAnswer(){
+            return parent.correctAnswers;
+        }
+        
+        function getAnswer(){
+            return parent.currentAnswers;
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="PAWrapperID" >
+        <div id="pictureHolderId">
+            <div id="imgDiv"></div>
+        </div>
+        <div id="optionsHolder">
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<trigger>
+  <event type="0">
+    <logic>
+      <action>
+        <property>ShowMediaAction|image|action2.png</property>
+      </action>
+    </logic>
+    <logic>
+      <action>
+        <property>ShowMediaAction|image|action3.jpg</property>
+      </action>
+    </logic>
+    <logic>
+      <action>
+        <property>ShowMediaAction|image|action4.png</property>
+      </action>
+    </logic>
+    <logic>
+      <action>
+        <property>ShowMediaAction|image|action5.png</property>
+      </action>
+    </logic>
+  </event>
+</trigger>

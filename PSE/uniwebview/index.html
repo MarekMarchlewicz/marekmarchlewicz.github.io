@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>GUI Shell for 3DHive Ecosystem</title>
+	
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="css/GUIShell_LARGE.css">
+
+    <link rel="stylesheet" href="css/minigame.css"/>
+    <link rel="stylesheet" href="css/jquery.ui.all.css"/>
+    <link rel="stylesheet" href="css/jquery.jscrollpane.css"/>
+    <link rel="stylesheet" href="css/gridlock.min.css"/>
+    <link rel="stylesheet" href="override/override.css"/>
+    
+	<script type="text/javascript" src="javascript/jquery/jquery-min.js"></script>
+	<script src="javascript/jquery/jquery.dotdotdot.min.js" type="text/javascript"></script>
+	<script src="javascript/greensock/TweenMax.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="javascript/jquery/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="javascript/jquery/jquery.touchSwipe.min.js"></script>
+    
+    <script type="text/javascript" src="javascript/control/minigameControl.js"></script>
+    <script type="text/javascript" src="javascript/model/dialog.js"></script>
+    <script type="text/javascript" src="javascript/control/minigameMenuManager.js"></script>
+    <script type="text/javascript" src="javascript/control/minigameXMLManager.js"></script>
+    <script type="text/javascript" src="javascript/control/minigameManager.js"></script>
+    <script type="text/javascript" src="javascript/control/triggerQueueManager.js"></script>
+    <script type="application/javascript" src="javascript/utils/FontUtils.js"></script>
+    <script type="text/javascript" src="javascript/model/ui.js"></script>
+    <script type="text/javascript" src="javascript/model/stage.js"></script>
+    <script type="text/javascript" src="javascript/utils/strFuncs.js"></script>
+    <script type="text/javascript" src="javascript/jquery/jquery.transform2d.js"></script>
+    <script type="text/javascript" src="javascript/jquery/jquery.flip.js"></script>
+    <!-- <script src="javascript/kinetic-v5.1.0/kinetic.js" type="text/javascript"></script> -->
+    
+    <script src="javascript/UIComponents/Dialog/Dialog.js" type="text/javascript"></script>
+	<script src="javascript/UIComponents/Content/Content.js" type="text/javascript"></script>
+	<script src="javascript/UIComponents/Utilities/Utils.js" type="text/javascript"></script>
+	<script src="javascript/UIComponents/Utilities/jquery.xml2json.js" type="text/javascript"></script>
+    <script src="javascript/UIComponents/Data/Global.js" type="text/javascript"></script>    
+    <script src="javascript/UIComponents/Inventory/Inventory.js" type="text/javascript"></script>   
+    
+    <script src="javascript/UIComponents/Manager/TriggerManager.js" type="text/javascript"></script>
+	<script src="javascript/UIComponents/Manager/ItemManager.js" type="text/javascript"></script>
+    <script src="javascript/UIComponents/Manager/DialogManager.js" type="text/javascript"></script>
+    <script src="javascript/UIComponents/Manager/UniwebviewManager.js" type="text/javascript"></script>
+    <script src="javascript/UIComponents/Manager/LeaderBoard.js" type="text/javascript"></script>
+    
+    <script src="javascript/UIComponents/Logging/LoggingManager.js" type="text/javascript"></script>
+    <script src="javascript/WindowsManager.js" type="text/javascript"></script>
+     
+    <script type="text/javascript" src="javascript/UIComponents/Utilities/spin.min.js"></script>
+    <script type="text/javascript" src="javascript/UIComponents/Utilities/LoadingBar.js"></script>
+   <!-- <script type="text/javascript" src="javascript/model/scrollbar.js"></script>-->
+    
+    
+    <script type="application/javascript">
+        $(document).ready(function(){
+            UniwebviewManager.GetGameDirectory("StartTheSetup");
+            //CHECK TO SEE WHETHER MOBILE DEVICE IS MOBILE
+
+        });
+
+        function StartTheSetup(data){
+            Global.gamedirectory = data + "/";
+            UniwebviewManager.IsMobilePlatform("IsMobilePlatform");
+        }
+
+        function IsMobilePlatform(data){
+            Global.isMobilePlatform = data;
+            //INITIALISE LOG, AUTOMATICALLY ADDS START SESSION TIME STAMP
+            LoggingManager.initLoggingManager(initLoggingManagerIsSetup); 
+            strFuncs.log("Init Logging is Done");
+        }
+        
+        
+        function initLoggingManagerIsSetup(){
+            //SETUP OTHER NON PANEL RELATED SYSTEMS
+            WindowManager.initPanelToManager("dialog",Dialog,true,extractXMLs);
+            //PREACTIVE FOCUS MODE
+            Global.focusModeActivated = true;
+            //Tell The Engine that Uniwebview is ready for binding
+        }
+        
+        function extractXMLs(){
+            try{
+                Utils.getXMLFromFile("items.xml",function(xml){
+                    ItemManager.itemJSON = $.xml2json(xml).ObjectiveItem.item;
+                    Utils.getXMLFromFile("statusuiobject.xml",function(xml){
+                        try{
+                            ItemManager.statusJSON = $.xml2json(xml).StatusUI;
+                            for(var i=0;i<ItemManager.itemJSON.length;i++){
+                                ItemManager.itemJSON[i].isScorable = isScorable(ItemManager.itemJSON[i]);
+                            }
+                        }
+                        catch(e)
+                        {
+                            
+                        }
+                        tellEngineUniwebviewIsReady();
+                    })
+                })
+            }
+            catch(e)
+            {
+                tellEngineUniwebviewIsReady();
+            }
+        }
+        
+        function isScorable(itemObj){
+            var bool=(itemObj.isScorable!=undefined)?itemObj.isScorable:false;
+            for(var j=0;j<ItemManager.statusJSON.length;j++){
+                if(ItemManager.statusJSON[j].ID==itemObj.statusID){
+                    if(ItemManager.statusJSON[j].affectScore!=undefined){
+                        bool = ItemManager.statusJSON[j].affectScore;
+                        break;
+                    }
+                }
+            }
+            if(bool.toString()=="true")bool=true;
+            else bool = false;
+            return bool;
+        }
+        
+        function tellEngineUniwebviewIsReady(){
+            UniwebviewManager.IsReady("IsReady");
+        }
+
+        function IsReady(data){
+        }
+
+        function OnEngineMessage(data){
+            //Do Nothing
+        }
+    </script>
+    
+    
+    
+</head>
+
+<body>
+</body>
+
+</html>

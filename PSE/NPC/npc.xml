@@ -1,0 +1,26 @@
+<NpcInfo>
+  <npc id="0" name="noncustom_male_soldier01" prefab="Playware_Pack/Characters/noncustom_male_soldier01">
+    <trigger>media|npctrigger0</trigger>
+    <stat name="Health" type="int" value="100" desc="Health"/>
+    <stat name="Damage" type="int" value="2" desc="Strength"/>
+    <stat name="Range" type="float" value="2" desc="Strength Range"/>
+    <stat name="MovementSpeed" type="float" value="1" desc="Movement Speed"/>
+    <collider>true</collider>
+    <weapon/>
+    <drops/>
+    <behaviour/>
+    <trigger/>
+  </npc>
+  <npc id="1" name="MiniGameGiver_2" prefab="Playware_Pack/Characters/noncustom_male_soldier02">
+    <trigger>media|npctrigger1</trigger>
+    <stat name="Health" type="int" value="100" desc="Health"/>
+    <stat name="Damage" type="int" value="2" desc="Strength"/>
+    <stat name="Range" type="float" value="2" desc="Strength Range"/>
+    <stat name="MovementSpeed" type="float" value="1" desc="Movement Speed"/>
+    <collider>true</collider>
+    <weapon/>
+    <drops/>
+    <behaviour/>
+    <trigger/>
+  </npc>
+</NpcInfo>

@@ -1,0 +1,28 @@
+<world>
+  <global>
+    <ui inventorybutton="true" objectivebutton="true" takepicturebutton="true" authbutton="true" authimagebutton="true"/>
+    <scoresystem>minigame</scoresystem>
+  </global>
+  <terrain>
+    <asset name="LDR_Defence_Pack/Environments/Bunk" pos="-17.205000000000005|0|-38.53500000000001" rot="0|0|0" scale="1|1|1"/>
+  </terrain>
+  <playerspawn pos="-17.91692307692307|0|-37.758461538461574" rot="0|90|0" model="APS_Pack/Characters/R_noncustom_malechild03B" name="Player Character" scale="1|1|1" controller="FreeMovement"/>
+  <items/>
+  <triggers/>
+  <npcs>
+    <npc id="0">
+      <data>
+        <instances>
+          <instance pos="-14.058461538461557|0|-40.12269230769232" rot="0|270|0" scale="1" radius="0.60" model="Common/Misc/Icon" showModel="true"/>
+        </instances>
+      </data>
+    </npc>
+    <npc id="1">
+      <data>
+        <instances>
+          <instance pos="-13.788461538461547|0|-36.928846153846166" rot="0|270|0" scale="1" radius="0.60" model="Common/Misc/Icon" showModel="true"/>
+        </instances>
+      </data>
+    </npc>
+  </npcs>
+</world>
