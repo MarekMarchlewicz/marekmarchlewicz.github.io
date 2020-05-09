@@ -230,7 +230,6 @@
             height:100%;            
         }
     </style>
-    <script type="text/javascript" src="javascript/utils/xml2json.min.js"></script>
     <script>
         var hasCyclicUpdate = false;
         var treeNode = {};
@@ -252,13 +251,8 @@
         var offset = 30;
 
         $(document).ready(function () {
-            $("#menuItem").focus(function(){
-                console.log("====+++" + firstListItem.find("a").text());
-            });
 
-            debugger;
-
-			SetBackground();
+            SetBackground();
             minigameControl.GameObject.GameActions = [];
             InitBranchingListEntry();
             InitializeMinigame(currentXMLList, document);
@@ -364,7 +358,10 @@
 
         function ResetButtonPressed(){
             InitBranchWithFirstNodes();
-            minigameControl.GameObject.GameActions.push({"buttonPressed" : "ResetButton", "currentNode" : currentNode.NodeName, "time" : LoggingUtils.createTimestampNow()});
+            minigameControl.GameObject.GameActions.push({
+                "buttonPressed" : "ResetButton",
+                 "currentNode" : currentNode.NodeName,
+                  "time" : LoggingUtils.createTimestampNow()});
         }
 
         function InitBranchWithFirstNodes() {
@@ -379,7 +376,10 @@
                 currentIndex = 0;
                 UpdateCurrentBranchAndNode();
 
-                minigameControl.GameObject.GameActions.push({"buttonPressed" : "OkButton", "currentNode" : currentNode.NodeName, "time" : LoggingUtils.createTimestampNow()});
+                minigameControl.GameObject.GameActions.push({
+                    "buttonPressed" : "OkButton",
+                     "currentNode" : currentNode.NodeName,
+                      "time" : LoggingUtils.createTimestampNow()});
             }
         }
 
@@ -399,14 +399,21 @@
 
                     if(direction === "left"){
                         if(parent.currentAnswers === parent.correctAnswers){
-                            minigameControl.GameObject.GameActions.push({"buttonPressed" : "SubmitButton", "event" : "correctSelection", "currentNode" : currentNode.NodeName, "time" : LoggingUtils.createTimestampNow()});
+                            minigameControl.GameObject.GameActions.push({
+                                "buttonPressed" : "SubmitButton",
+                                 "event" : "correctSelection",
+                                  "currentNode" : currentNode.NodeName,
+                                   "time" : LoggingUtils.createTimestampNow()});
                             Submit();
                         }
                     }
 
                     UpdateCurrentBranchAndNode();
 
-                    minigameControl.GameObject.GameActions.push({"buttonPressed" : direction, "currentNode" : currentNode.NodeName, "time" : LoggingUtils.createTimestampNow()});
+                    minigameControl.GameObject.GameActions.push({
+                        "buttonPressed" : direction,
+                         "currentNode" : currentNode.NodeName,
+                          "time" : LoggingUtils.createTimestampNow()});
                 } catch(err){
                     currentBranch = tempCurrentBranch;
                 }
@@ -529,7 +536,6 @@
             var menuItemElement = document.getElementById("menuItem");
             menuItemElement.innerHTML = currentBranch.Display;
             
-            debugger;
             UpdateListItemsWithCurrentValues(); 
             SetActivateButton();
         }
@@ -544,7 +550,6 @@
             for (i = 0; i < numberOfListEntries; i += 1) {
                 var currentItem = listElement.eq(i);
                 
-                // first item in branch
                 if(((currentIndex | i) == 0)){
                     isCurrentItemFocused = true;
                     currentElementNode = currentNode;
@@ -690,7 +695,7 @@
             }
 
             var a = '<ul id=\"displayEntryList\">';
-            var b = '</ul>'
+            var b = '</ul>';
             m = [];
             var intItem = 246;
             var innerHTML = a;
@@ -843,7 +848,10 @@
         function Submit() {
             currentAnswers = currentNode.NodeName;
             
-            minigameControl.GameObject.GameActions.push({"buttonPressed" : "SubmitButton", "currentNode" : currentNode.NodeName, "time" : LoggingUtils.createTimestampNow()});
+            minigameControl.GameObject.GameActions.push({
+                "buttonPressed" : "SubmitButton",
+                 "currentNode" : currentNode.NodeName,
+                  "time" : LoggingUtils.createTimestampNow()});
             $("#submitBtnID").mousedown();
         }
 
@@ -852,7 +860,10 @@
                 $("#confirmationButtonID").show();
                 confirmationButtonActive = true;
 
-                minigameControl.GameObject.GameActions.push({"buttonShown" : "ConfirmationButton", "currentNode" : currentNode.NodeName, "time" : LoggingUtils.createTimestampNow()});
+                minigameControl.GameObject.GameActions.push({
+                    "buttonShown" : "ConfirmationButton",
+                     "currentNode" : currentNode.NodeName,
+                      "time" : LoggingUtils.createTimestampNow()});
             } else {
                 $("#confirmationButtonID").hide();
                 confirmationButtonActive = false;
@@ -917,7 +928,7 @@
 
         <img id="okButtonNavID" src="images/minigames/empty.png"  onmousedown="NavigateToLastBranch()" />
         <img id="startstopButtonNavID" src="images/minigames/empty.png"  onmousedown="Submit()" />
-        <img id="prescriptionImage" src="images/minigames/empty.png"/>
+        <div id="prescriptionImage" src="images/minigames/empty.png"></div>
     </div>
 </body>
 

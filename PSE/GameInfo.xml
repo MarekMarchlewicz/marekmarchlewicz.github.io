@@ -1,7 +1,7 @@
 <LevelInfo>
-  <LevelID>WebGLSizer</LevelID>
-  <LevelName><![CDATA[WebGLSizer]]></LevelName>
-  <LevelDescription><![CDATA[- Resource heavy (possibly lots of images/sound/dialogues) to a size of 100 MB- Test max size, performance and loading in browser  ]]></LevelDescription>
-  <ExportInfo builderversion="0.23.153" date="Thu Mar 26 12:31:12 GMT+0800 2020" os="Windows 10"/>
-  <ExportID>WebGLSizer1585197072473222439</ExportID>
+  <LevelID>AllMIniGameTesting</LevelID>
+  <LevelName><![CDATA[Testing All Mini Game]]></LevelName>
+  <LevelDescription><![CDATA[Enter mission description.]]></LevelDescription>
+  <ExportInfo builderversion="0.23.153" date="Mon May 4 16:38:16 GMT+0800 2020" os="Windows 10"/>
+  <ExportID>AllMIniGameTesting1588581496311172370</ExportID>
 </LevelInfo>

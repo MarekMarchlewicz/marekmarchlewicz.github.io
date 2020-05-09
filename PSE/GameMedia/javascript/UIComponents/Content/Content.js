@@ -84,6 +84,10 @@ var Content = new function()
 
 		buildInitialContentSkeleton();
 
+        $("#closeBtnImg").unbind().on("click", function () {
+            ContentEvents.CloseWindow();
+        });
+
 		$("#contentCloseButton").unbind().on("click",function(){
 			ContentEvents.CloseWindow();
 		});
@@ -234,7 +238,7 @@ function buildInitialContentSkeleton()
     if(ContentData.chromeless)
     {
         str += "<iframe id='chromelessContentWindow' frameborder='0' scrolling='no' class='contentWrapperClass'></iframe>";
-
+        str += '<img id="closeBtnImg" src="images/minigames/exit_common.png" alt=""/>';
     }
     else
     {

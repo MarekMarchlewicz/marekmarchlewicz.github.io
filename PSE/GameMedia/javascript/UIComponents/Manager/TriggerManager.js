@@ -13,7 +13,7 @@ var triggerObject={};
 var TriggerManager = new function(){
     this.OpenMediaRequest=function(fn){//Listener for Uniwebview to open media trigger
         triggerObject = fn;
-        $("#mainContentWindow").remove();
+        //$("#mainContentWindow").remove();
         TriggerManager.ar = [];
         TriggerManager.isTrigger = true;
         LoadingBar.hide();
@@ -83,7 +83,7 @@ var TriggerManager = new function(){
                         console.log("Image ON")
                         Log.addAction("image",{uri:obj.URI});
                         Global.tmpFocusMode = Global.focusModeActivated;
-                        Content.initSkeleton(false);
+                        Content.initSkeleton(true);
                         Content.setTranparentFrame(false)
                         Content.BGColor("#273848");
                         $(".contentWrapperClass").attr("src", "contents/image.html?img="+obj.URI);

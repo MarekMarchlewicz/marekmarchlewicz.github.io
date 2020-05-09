@@ -199,7 +199,7 @@ var minigameManager = new function(){
                 //strGameLoadedForSlide("D:/work/3DHive.mobi-Javascript/Game/Bug/GameMedia/contents/slideshow.html");
                 break;
             case "COMIC STRIP":
-                $(".minigame-class").hide();
+                //$(".minigame-class").hide();
                 Utils.getStringFromFile("/GameMedia/contents/ComicStrip.html","strGameLoaded");
                 break;
             case "MCQ":

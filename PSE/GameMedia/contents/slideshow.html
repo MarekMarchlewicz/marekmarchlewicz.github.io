@@ -137,6 +137,9 @@
             transparentBG = ($(currentXMLList).find("transparent").text()=="true")?true:false;
             animationType = $(currentXMLList).find("animationType").text();
             slideCount = $(currentXMLList).find("Items").length;
+
+            currentDuration=$($(currentXMLList).find("Items")[currentItem]).find("duration").text();
+            currentDelay=$($(currentXMLList).find("Items")[currentItem]).find("delay").text() * 1000;
             
             currentSlideContainer = document.getElementById("slideContentid");
             if(slideCount>1)nextSlideContainer = document.getElementById("slideContentReservedid");
@@ -185,10 +188,12 @@
                     backgroundColor:"rgba(39, 56, 72,1)"
                 });
                 $("#slideleftNavID").css({
-                    pointerEvents:"none"
+                    pointerEvents:"none",
+                    display:"none"
                 });
                 $("#sliderightNavID").css({
-                    pointerEvents:"none"
+                    pointerEvents:"none",
+                    display:"none"
                 });
                 $("#navigateSlideWrapperID").fadeIn();
                 
@@ -224,7 +229,7 @@
         }
         function startSlideShow(){
             $("#startNavBtnID").off("mousedown");
-            setTimeout(gotoNextSlide,1000);
+            setTimeout(gotoNextSlide,currentDelay);
         }
 
         var ssto;
@@ -293,6 +298,7 @@
                 return;
             }
             currentDuration=$($(currentXMLList).find("Items")[currentItem]).find("duration").text();
+            currentDelay=$($(currentXMLList).find("Items")[currentItem]).find("delay").text() * 1000;
             assignValuestoSlide(nextSlideContainer);
             animateSlides("left");
             
@@ -327,6 +333,7 @@
             }
 
             currentDuration=$($(currentXMLList).find("Items")[currentItem]).find("duration").text();
+            currentDelay=$($(currentXMLList).find("Items")[currentItem]).find("delay").text() * 1000;
             assignValuestoSlide(nextSlideContainer,true);
             animateSlides("right");
         }

@@ -2,12 +2,7 @@
   <event type="0">
     <logic>
       <action>
-        <property>ShowMediaAction|image|action0.png</property>
-      </action>
-    </logic>
-    <logic>
-      <action>
-        <property>ShowMediaAction|image|action1.png</property>
+        <property>ShowMediaAction|dialog|dialogue0.xml</property>
       </action>
     </logic>
   </event>
