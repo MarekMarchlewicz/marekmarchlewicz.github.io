@@ -1,4 +1,4 @@
--target localplay
+-target legacy
 -chaptername Azamwm2051
 -gamename AllMIniGameTesting_export_webgl
 -persistent Data
