@@ -1,0 +1,4 @@
+-target legacy
+-persistent Data
+-gamesPath Data\Games
+-assetsPath Data\Assets
